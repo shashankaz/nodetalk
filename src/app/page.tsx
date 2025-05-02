@@ -11,7 +11,7 @@ const inter = Inter({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-export const userData = [
+const userData = [
   {
     name: "John Doe",
     avatar: "https://randomuser.me/api/portraits/men/1.jpg",
