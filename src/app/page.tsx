@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Inter } from "next/font/google";
 import Image from "next/image";
+import { motion } from "motion/react";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -556,7 +557,7 @@ const FriendsList: React.FC<FriendsListProps> = ({
         </span>
       </div>
       <div
-        className="flex items-center gap-2 overflow-y-auto border-b border-gray-200 pb-6"
+        className="flex items-center gap-2 overflow-y-auto border-b border-gray-200 pb-6 pt-1"
         style={{ scrollbarWidth: "none" }}
       >
         {userData
@@ -630,12 +631,14 @@ const FriendsLiveIcon: React.FC<FriendsLiveIconProps> = ({
   setOpenChat,
 }) => {
   return (
-    <div
+    <motion.div
       className="size-16 min-w-16 rounded-full relative cursor-pointer"
       onClick={() => {
         setChat(data);
         setOpenChat(true);
       }}
+      whileTap={{ scale: 0.95 }}
+      exit={{ scale: 1 }}
     >
       <Image
         src={src}
@@ -645,7 +648,7 @@ const FriendsLiveIcon: React.FC<FriendsLiveIconProps> = ({
         className="rounded-full shadow-md"
       />
       <div className="size-3 rounded-full bg-green-500 border-[2px] border-white absolute right-1 bottom-1"></div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -675,13 +678,15 @@ const FriendsChat: React.FC<FriendsChatProps> = ({
   messages,
 }) => {
   return (
-    <div
+    <motion.div
       className="flex items-center justify-between border-b border-gray-200 pb-5 pt-2 cursor-pointer"
       onClick={() => {
         setChat(data);
         setOpenChat(true);
         setMessages(data.messages);
       }}
+      whileTap={{ scale: 0.95 }}
+      exit={{ scale: 1 }}
     >
       <div className="flex items-center gap-3">
         <div className="size-16 min-w-16 relative">
@@ -704,7 +709,7 @@ const FriendsChat: React.FC<FriendsChatProps> = ({
         </div>
       </div>
       <span className="text-sm text-gray-500">{time}</span>
-    </div>
+    </motion.div>
   );
 };
 
@@ -880,14 +885,15 @@ const ChatPage: React.FC<ChatPageProps> = ({
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
         />
-        <button
-          className="bg-purple-500 text-white rounded-md p-2 cursor-pointer"
+        <motion.button
+          className="bg-purple-500 hover:bg-purple-600 transition-all text-white rounded-md p-2 cursor-pointer"
           onClick={handleSend}
+          whileTap={{ scale: 0.95 }}
         >
           <span className="size-6 flex items-center justify-center">
             <Send />
           </span>
-        </button>
+        </motion.button>
       </div>
     </div>
   );
