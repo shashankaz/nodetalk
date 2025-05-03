@@ -469,6 +469,7 @@ const Home = () => {
   const [openChat, setOpenChat] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>(chat.messages || []);
   const [currentChatName, setCurrentChatName] = useState<string>("");
+  const [isLanding, setIsLanding] = useState<boolean>(true);
 
   useEffect(() => {
     const eventListener = (e: KeyboardEvent) => {
@@ -488,6 +489,14 @@ const Home = () => {
     setMessages(chat.messages || []);
     setCurrentChatName(chat.name || "");
   }, [chat]);
+
+  if (isLanding) {
+    return (
+      <div className="h-screen flex flex-col">
+        <LandingPage setIsLanding={setIsLanding} />
+      </div>
+    );
+  }
 
   return (
     <div className={`h-screen flex flex-col ${inter.className}`}>
@@ -1033,6 +1042,140 @@ const UserProfile: React.FC<UserProfileProps> = ({ className, chat }) => {
         </div>
       </div>
       <div></div>
+    </div>
+  );
+};
+
+interface LandingPageProps {
+  setIsLanding: (isLanding: boolean) => void;
+}
+
+const LandingPage: React.FC<LandingPageProps> = ({ setIsLanding }) => {
+  return (
+    <div className="h-full flex flex-col items-center justify-center bg-gradient-to-b from-purple-50 to-white py-12 px-4 sm:px-6 lg:px-8 overflow-y-auto">
+      <div className="max-w-7xl mx-auto text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="my-16"
+        >
+          <h1 className="text-5xl md:text-6xl font-bold text-purple-900 mb-6">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">
+              NodeTalk
+            </span>
+          </h1>
+          <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
+            Connect with friends and family in real-time with our intuitive
+            messaging platform
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16"
+        >
+          <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+            <div className="bg-purple-100 rounded-full w-12 h-12 flex items-center justify-center mb-4 mx-auto">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 text-purple-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                />
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold mb-2 text-gray-800">
+              Real-time Messaging
+            </h3>
+            <p className="text-gray-600">
+              Exchange messages instantly with your contacts with read receipts
+              and typing indicators.
+            </p>
+          </div>
+
+          <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+            <div className="bg-blue-100 rounded-full w-12 h-12 flex items-center justify-center mb-4 mx-auto">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 text-blue-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                />
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold mb-2 text-gray-800">
+              End-to-End Encryption
+            </h3>
+            <p className="text-gray-600">
+              Your conversations are secured with state-of-the-art encryption
+              technology.
+            </p>
+          </div>
+
+          <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+            <div className="bg-green-100 rounded-full w-12 h-12 flex items-center justify-center mb-4 mx-auto">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 text-green-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-3.33 0-6 2.24-6 5v1h12v-1c0-2.76-2.67-5-6-5z"
+                />
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold mb-2 text-gray-800">
+              Live Users Indicator
+            </h3>
+            <p className="text-gray-600">
+              See who&apos;s online and available to chat in real-time.
+            </p>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+          className="flex flex-col items-center"
+        >
+          <button
+            onClick={() => setIsLanding(false)}
+            className="bg-gradient-to-r from-purple-600 to-blue-500 text-white text-lg font-medium py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform transition-transform hover:-translate-y-1"
+          >
+            Start Chatting Now
+          </button>
+          <p className="text-gray-500 mt-4">
+            No registration required. Try it instantly!
+          </p>
+        </motion.div>
+      </div>
+
+      <footer className="mt-16 text-center text-gray-500 text-sm">
+        <p>© {new Date().getFullYear()} NodeTalk. All rights reserved.</p>
+      </footer>
     </div>
   );
 };
